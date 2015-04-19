@@ -1,0 +1,39 @@
+
+
+<?php
+// module/Album/view/album/album/add.phtml:
+
+$title = 'Buy some stuff';
+$this->headTitle($title);
+?>
+<h1><?php echo $this->escapeHtml($title); ?></h1>
+
+<?php if($buy){ ?>
+    <div class="alert alert-success">
+        <span class="glyphicon glyphicon-remove"></span><strong>Thanks for buying.</strong>
+    </div>
+<?php } ?>
+
+<table class="table">
+    <tr>
+        <th>Package</th>
+        <th>Price</th>
+        <th>&nbsp;</th>
+    </tr>
+    <?php foreach ($packages as $package) : ?>
+        <tr>
+            <td><?php echo $this->escapeHtml($package->name);?></td>
+            <td><?php echo $this->escapeHtml($package->price);?>€</td>
+            <td>
+                <a href="<?php echo $this->url('shop',
+                    array('action'=>'buy', 'id' => $package->id));?>">Buy</a>
+            </td>
+        </tr>
+    <?php endforeach; ?>
+</table>
+
+
+
+
+
+

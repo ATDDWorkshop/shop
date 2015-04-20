@@ -25,8 +25,5 @@ class Package
         $this->price  = (!empty($data['price'])) ? $data['price'] : null;
     }
 
-    public function buy(User $user){
-        return $user->addRevenue($this->price);
-    }
 
 }

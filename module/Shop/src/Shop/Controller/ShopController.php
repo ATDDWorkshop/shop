@@ -52,7 +52,7 @@ class ShopController extends AbstractActionController
     public function buyAction()
     {
         $package=$this->getPackageTable()->fetch($this->params("id"));
-        if($package->buy(ShopUser::currentUser())) {
+        if(ShopUser::currentUser()->addRevenue($package->price)) {
             $view = new ViewModel(array(
                 'packages' => $this->getPackageTable()->fetchAll(),
                 'buy' => true

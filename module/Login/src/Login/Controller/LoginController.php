@@ -25,16 +25,20 @@ class LoginController extends AbstractActionController
             return $this->redirect()->toRoute('shop');
         }
 
-        $form = new LoginForm();
-        $error=false;
 
+        $error=false;
         $request = $this->getRequest();
+
+        /**
+         * @var \Login\Form\LoginForm $form
+         */
+        $form=$this->getServiceLocator()->get('FormElementManager')->get('LoginForm');
+
         if($request->isPost()){
-            $user = new User();
-            $form->setInputFilter($user->getInputFilter());
             $form->setData($request->getPost());
             if($form->isValid()) {
-                $user->exchangeArray($form->getData());
+                $user=$form->getObject();
+                
                 if ($user->exists()) {
                     $user->login();
                     return $this->redirect()->toRoute('shop');

@@ -21,19 +21,41 @@ use Zend\Session\Container; // We need this when using sessions
 
 class User implements InputFilterAwareInterface
 {
-    public $id;
+    private $id;
 
-    public $name;
-    public $password;
+    private $name;
+    private $password;
 
     protected $inputFilter;
 
-    public function exchangeArray($data)
-    {
-        $this->id = (!empty($data['id'])) ? $data['id'] : null;
-        $this->name = (!empty($data['name'])) ? $data['name'] : null;
-        $this->password  = (!empty($data['password'])) ? $data['password'] : null;
+   public function getId(){
+        return $this->id;
     }
+
+    public function setId($id){
+        $this->id=$id;
+    }
+
+
+    public function getPassword(){
+        return $this->password;
+    }
+
+
+    public function setPassword($password){
+        $this->password=$password;
+    }
+
+    public function getName(){
+        return $this->name;
+    }
+
+
+    public function setName($name){
+       $this->name=$name;
+    }
+
+
 
     public function setInputFilter(InputFilterInterface $inputFilter)
     {

@@ -30,6 +30,12 @@ return array(
         ),
     ),
 
+    'form_elements' => array(
+        'factories'=> array(
+            'LoginForm' => 'Login\Form\LoginFormFactory'
+        ),
+    ),
+
     'view_manager' => array(
         'template_path_stack' => array(
             'login' => __DIR__ . '/../view',

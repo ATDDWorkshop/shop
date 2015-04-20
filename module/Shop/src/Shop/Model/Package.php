@@ -15,7 +15,7 @@ class Package
     public $id;
     public $name;
     public $price;
-    
+
 
     public function exchangeArray($data)
     {

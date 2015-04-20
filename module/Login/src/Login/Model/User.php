@@ -28,33 +28,38 @@ class User implements InputFilterAwareInterface
 
     protected $inputFilter;
 
-   public function getId(){
+    public function getId()
+    {
         return $this->id;
     }
 
-    public function setId($id){
-        $this->id=$id;
+    public function setId($id)
+    {
+        $this->id = $id;
     }
 
 
-    public function getPassword(){
+    public function getPassword()
+    {
         return $this->password;
     }
 
 
-    public function setPassword($password){
-        $this->password=$password;
+    public function setPassword($password)
+    {
+        $this->password = $password;
     }
 
-    public function getName(){
+    public function getName()
+    {
         return $this->name;
     }
 
 
-    public function setName($name){
-       $this->name=$name;
+    public function setName($name)
+    {
+        $this->name = $name;
     }
-
 
 
     public function setInputFilter(InputFilterInterface $inputFilter)
@@ -62,20 +67,21 @@ class User implements InputFilterAwareInterface
         throw new \Exception("Not used");
     }
 
-    public function exists(){
+    public function exists()
+    {
         $request = new Request();
         $request->getHeaders()->addHeaders(array(
             'Content-Type' => 'application/json',
-            'Accept'=>'*/*'
+            'Accept' => '*/*'
         ));
-        $request->setUri("http://datawarehouse/user?name=".$this->name."&password=".$this->password);
+        $request->setUri("http://datawarehouse/user?name=" . $this->name . "&password=" . $this->password);
         $request->setMethod('GET');
         $client = new Client();
         $response = $client->dispatch($request);
         $data = json_decode($response->getBody(), true);
 
-        if($data["total_items"]==1){
-            $this->id=$data["_embedded"]["user"][0]["id"];
+        if ($data["total_items"] == 1) {
+            $this->id = $data["_embedded"]["user"][0]["id"];
             return true;
         }
 
@@ -88,9 +94,9 @@ class User implements InputFilterAwareInterface
             $inputFilter = new InputFilter();
 
             $inputFilter->add(array(
-                'name'     => 'name',
+                'name' => 'name',
                 'required' => true,
-                'filters'  => array(
+                'filters' => array(
                     array('name' => 'StripTags'),
                     array('name' => 'StringTrim'),
                 ),
@@ -100,9 +106,9 @@ class User implements InputFilterAwareInterface
             ));
 
             $inputFilter->add(array(
-                'name'     => 'password',
+                'name' => 'password',
                 'required' => true,
-                'filters'  => array(
+                'filters' => array(
                     array('name' => 'StripTags'),
                     array('name' => 'StringTrim'),
                 ),
@@ -116,22 +122,23 @@ class User implements InputFilterAwareInterface
         return $this->inputFilter;
     }
 
-    public function login(){
+    public function login()
+    {
         $userSession = new Container('user');
-        $userSession->id=$this->id;
+        $userSession->id = $this->id;
     }
 
 
     //------ service methods -----
-    public static function isLogin(){
+    public static function isLogin()
+    {
         $userSession = new Container('user');
-        if($userSession->id){
+        if ($userSession->id) {
             return true;
-        }else{
+        } else {
             return false;
         }
     }
-
 
 
 }

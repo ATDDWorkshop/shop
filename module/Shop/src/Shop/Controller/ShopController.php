@@ -24,21 +24,21 @@ class ShopController extends AbstractActionController
     private $packageTable;
 
 
-
-    public function onDispatch(MvcEvent $e){
-        if(!User::isLogin()){
+    public function onDispatch(MvcEvent $e)
+    {
+        if (!User::isLogin()) {
             $this->redirect()->toUrl("/");
         }
-       return parent::onDispatch($e);
+        return parent::onDispatch($e);
     }
 
-    protected function getPackageTable(){
-        if(!$this->packageTable){
-            $this->packageTable=new PackageTable();
+    protected function getPackageTable()
+    {
+        if (!$this->packageTable) {
+            $this->packageTable = new PackageTable();
         }
         return $this->packageTable;
     }
-
 
 
     public function indexAction()
@@ -51,8 +51,8 @@ class ShopController extends AbstractActionController
 
     public function buyAction()
     {
-        $package=$this->getPackageTable()->fetch($this->params("id"));
-        if(ShopUser::currentUser()->addRevenue($package->price)) {
+        $package = $this->getPackageTable()->fetch($this->params("id"));
+        if (ShopUser::currentUser()->addRevenue($package->price)) {
             $view = new ViewModel(array(
                 'packages' => $this->getPackageTable()->fetchAll(),
                 'buy' => true
@@ -62,7 +62,6 @@ class ShopController extends AbstractActionController
         }
         return "error";
     }
-
 
 
 }

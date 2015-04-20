@@ -23,19 +23,20 @@ class User
     public function exchangeArray($data)
     {
         $this->id = (!empty($data['id'])) ? $data['id'] : null;
-        $this->revenue  = (!empty($data['revenue'])) ? $data['revenue'] : null;
+        $this->revenue = (!empty($data['revenue'])) ? $data['revenue'] : null;
     }
 
 
-    public function addRevenue($price){
-        $this->revenue+=$price;
+    public function addRevenue($price)
+    {
+        $this->revenue += $price;
 
         $request = new Request();
         $request->getHeaders()->addHeaders(array(
             'Content-Type' => 'application/json',
-            'Accept'=>'*/*'
+            'Accept' => '*/*'
         ));
-        $request->setUri("http://datawarehouse/user/".$this->id);
+        $request->setUri("http://datawarehouse/user/" . $this->id);
         $request->setMethod('PUT');
         $request->setContent(
             json_encode(
@@ -46,7 +47,7 @@ class User
         );
         $client = new Client();
         $response = $client->dispatch($request);
-        if($response->getStatusCode()==200){
+        if ($response->getStatusCode() == 200) {
             return true;
         }
         return false;
@@ -54,22 +55,23 @@ class User
     }
 
     //--- Service Method --
-    public static function currentUser(){
+    public static function currentUser()
+    {
         $userSession = new Container('user');
 
         $request = new Request();
         $request->getHeaders()->addHeaders(array(
             'Content-Type' => 'application/json',
-            'Accept'=>'*/*'
+            'Accept' => '*/*'
         ));
-        $request->setUri("http://datawarehouse/user/".$userSession->id);
+        $request->setUri("http://datawarehouse/user/" . $userSession->id);
         $request->setMethod('GET');
         $client = new Client();
         $response = $client->dispatch($request);
         $data = json_decode($response->getBody(), true);
 
 
-        $userObj=new User();
+        $userObj = new User();
         $userObj->exchangeArray($data);
 
         return $userObj;

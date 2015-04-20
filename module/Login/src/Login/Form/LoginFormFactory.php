@@ -14,9 +14,11 @@ use Zend\ServiceManager\ServiceLocatorInterface;
 use Login\Model\User;
 use Zend\Stdlib\Hydrator\ClassMethods;
 
-class LoginFormFactory implements FactoryInterface {
+class LoginFormFactory implements FactoryInterface
+{
 
-    public function createService(ServiceLocatorInterface $serviceLocator){
+    public function createService(ServiceLocatorInterface $serviceLocator)
+    {
         $form = new LoginForm();
         $user = new User();
         $form->setHydrator(new ClassMethods());

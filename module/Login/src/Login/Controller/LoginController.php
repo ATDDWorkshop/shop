@@ -14,39 +14,38 @@ use Zend\Mvc\Controller\AbstractActionController;
 use Login\Form\LoginForm;
 
 
-
 class LoginController extends AbstractActionController
 {
 
     public function loginAction()
     {
 
-        if(User::isLogin()){
+        if (User::isLogin()) {
             return $this->redirect()->toRoute('shop');
         }
 
 
-        $error=false;
+        $error = false;
         $request = $this->getRequest();
 
         /**
          * @var \Login\Form\LoginForm $form
          */
-        $form=$this->getServiceLocator()->get('FormElementManager')->get('LoginForm');
+        $form = $this->getServiceLocator()->get('FormElementManager')->get('LoginForm');
 
-        if($request->isPost()){
+        if ($request->isPost()) {
             $form->setData($request->getPost());
-            if($form->isValid()) {
-                $user=$form->getObject();
-                
+            if ($form->isValid()) {
+                $user = $form->getObject();
+
                 if ($user->exists()) {
                     $user->login();
                     return $this->redirect()->toRoute('shop');
                 }
-                $error=true;
+                $error = true;
             }
         }
-        return array('form' => $form,'error'=> $error);
+        return array('form' => $form, 'error' => $error);
 
     }
 }

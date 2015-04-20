@@ -11,11 +11,13 @@ namespace Shop\Model;
 use Zend\Http\Request;
 use Zend\Http\Client;
 
-class PackageTable {
+class PackageTable
+{
 
     protected $packages;
 
-    public function fetchAll(){
+    public function fetchAll()
+    {
 
         if (!$this->packages) {
             $packages = array();
@@ -35,24 +37,25 @@ class PackageTable {
                 $packageObj->exchangeArray($package);
                 array_push($packages, $packageObj);
             }
-            $this->packages=$packages;
+            $this->packages = $packages;
         }
         return $this->packages;
     }
 
-    public function fetch($id){
+    public function fetch($id)
+    {
         $request = new Request();
         $request->getHeaders()->addHeaders(array(
             'Content-Type' => 'application/json',
             'Accept' => '*/*'
         ));
-        $request->setUri("http://datawarehouse/package/".$id);
+        $request->setUri("http://datawarehouse/package/" . $id);
         $request->setMethod('GET');
         $client = new Client();
         $response = $client->dispatch($request);
         $data = json_decode($response->getBody(), true);
 
-        $packageObj=new Package();
+        $packageObj = new Package();
         $packageObj->exchangeArray($data);
 
         return $packageObj;

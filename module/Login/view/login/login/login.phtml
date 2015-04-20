@@ -1,5 +1,3 @@
-
-
 <?php
 // module/Album/view/album/album/add.phtml:
 
@@ -13,7 +11,7 @@ $form->prepare();
 
 echo $this->form()->openTag($form);
 ?>
-<?php if($error){ ?>
+<?php if ($error) { ?>
     <div class="alert alert-danger">
         <span class="glyphicon glyphicon-remove"></span><strong>Login failed.</strong>
     </div>
@@ -21,11 +19,11 @@ echo $this->form()->openTag($form);
 
 <div class="form-group">
     <?php echo $this->formRow($form->get('name')); ?>
-</div >
+</div>
 
 <div class="form-group">
     <?php echo $this->formRow($form->get('password')); ?>
-</div >
+</div>
 
 <?php echo $this->formSubmit($form->get('login')); ?>
 

@@ -15,15 +15,15 @@ return array(
     'router' => array(
         'routes' => array(
             'login' => array(
-                'type'    => 'segment',
+                'type' => 'segment',
                 'options' => array(
-                    'route'    => '/[/:action]',
+                    'route' => '/[/:action]',
                     'constraints' => array(
                         'action' => '[a-zA-Z][a-zA-Z0-9_-]*'
                     ),
                     'defaults' => array(
                         'controller' => 'Login\Controller\Login',
-                        'action'     => 'login',
+                        'action' => 'login',
                     ),
                 ),
             ),
@@ -31,7 +31,7 @@ return array(
     ),
 
     'form_elements' => array(
-        'factories'=> array(
+        'factories' => array(
             'LoginForm' => 'Login\Form\LoginFormFactory'
         ),
     ),

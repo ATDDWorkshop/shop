@@ -15,16 +15,16 @@ return array(
     'router' => array(
         'routes' => array(
             'shop' => array(
-                'type'    => 'segment',
+                'type' => 'segment',
                 'options' => array(
-                    'route'    => '/shop[/:action][/:id]',
+                    'route' => '/shop[/:action][/:id]',
                     'constraints' => array(
                         'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
-                        'id'     => '[0-9]+',
+                        'id' => '[0-9]+',
                     ),
                     'defaults' => array(
                         'controller' => 'Shop\Controller\Shop',
-                        'action'     => 'index',
+                        'action' => 'index',
                     ),
                 ),
             ),

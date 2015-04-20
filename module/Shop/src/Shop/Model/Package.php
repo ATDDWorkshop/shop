@@ -15,8 +15,7 @@ class Package
     public $id;
     public $name;
     public $price;
-
-    protected $inputFilter;
+    
 
     public function exchangeArray($data)
     {
